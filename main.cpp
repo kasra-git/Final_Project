@@ -21,7 +21,7 @@ struct Student
     char username[50];
     char password[50];
     float balance;
-    int borrowed_books[10]; // حداکثر 10 کتاب قابل امانت
+    int borrowed_books[10];
     int borrowed_count;
 };
 
@@ -112,7 +112,7 @@ void loadStudentsFromFile(vector<Student>& students)
             student.balance = stof(line.substr(0, pos));
             line.erase(0, pos + 1);
 
-            // خواندن کتاب‌های امانت گرفته شده
+
             student.borrowed_count = 0;
             if (!line.empty()) 
             {
@@ -133,7 +133,7 @@ void loadStudentsFromFile(vector<Student>& students)
     }
 }
 
-// توابع مربوط به مدیر
+
 bool adminLogin() 
 {
     string password;
@@ -186,7 +186,7 @@ void registerStudent(vector<Student>& students)
     cin >> newStudent.username;
     cout << "Enter password: ";
     cin >> newStudent.password;
-    newStudent.balance = 50.0f; // موجودی اولیه
+    newStudent.balance = 50.0f; 
     newStudent.borrowed_count = 0;
     students.push_back(newStudent);
     saveStudentsToFile(students);
@@ -246,7 +246,7 @@ void adminMenu(vector<Book>& books, vector<Student>& students)
     } while (choice != 6);
 }
 
-// توابع مربوط به دانش‌آموز
+
 int studentLogin(const vector<Student>& students, char* username) 
 {
     char password[50];
@@ -259,7 +259,7 @@ int studentLogin(const vector<Student>& students, char* username)
         if (strcmp(students[i].username, username) == 0 && 
             strcmp(students[i].password, password) == 0) 
             {
-            return i; // اندیس دانش‌آموز در بردار
+            return i;
         }
     }
     return -1; // ناموفق
@@ -337,13 +337,13 @@ void returnBook(vector<Book>& books, Student& student, vector<Student>& students
 
     for (int i = 0; i < student.borrowed_count; i++) {
         if (student.borrowed_books[i] == bookId) {
-            // جابجایی برای حذف کتاب از لیست امانت‌ها
+
             for (int j = i; j < student.borrowed_count - 1; j++) {
                 student.borrowed_books[j] = student.borrowed_books[j + 1];
             }
             student.borrowed_count--;
 
-            // علامت‌گذاری کتاب به عنوان موجود
+
             for (auto& book : books) {
                 if (book.id == bookId) {
                     book.available = true;
@@ -401,12 +401,12 @@ void studentMenu(vector<Book>& books, vector<Student>& students, int studentInde
     } while (choice != 5);
 }
 
-// تابع اصلی
+
 int main() {
     vector<Book> books;
     vector<Student> students;
 
-    // بارگذاری داده‌ها از فایل‌ها
+
     load_books_from_file(books);
     loadStudentsFromFile(students);
 
