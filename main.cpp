@@ -27,25 +27,25 @@ struct Student
 
 
 // Functions //
-void clearScreen(); 
-void pauseScreen(); 
+void clear_screen(); 
+void pause_screen(); 
 void save_books_to_file(const vector<Book>& books);
 void load_books_from_file(vector<Book>& books); 
-void saveStudentsToFile(const vector<Student>& students); 
-void loadStudentsFromFile(vector<Student>& students); 
-bool adminLogin(); 
-void addBook(vector<Book>& books);
-void editBook(vector<Book>& books); 
-void registerStudent(vector<Student>& students); 
-void viewStudents(const vector<Student>& students); 
-void checkStudentBalance(const vector<Student>& students); 
-void adminMenu(vector<Book>& books, vector<Student>& students); 
-int studentLogin(const vector<Student>& students, char* username); 
-void viewAvailableBooks(const vector<Book>& books); 
-void borrowBook(vector<Book>& books, Student& student, vector<Student>& students); 
-void returnBook(vector<Book>& books, Student& student, vector<Student>& students); 
-void rechargeAccount(Student& student, vector<Student>& students);
-void studentMenu(vector<Book>& books, vector<Student>& students, int studentIndex);
+void save_students_to_file(const vector<Student>& students); 
+void load_studentsa_from_file(vector<Student>& students); 
+bool admin_login(); 
+void add_book(vector<Book>& books);
+void edit_book(vector<Book>& books); 
+void register_student(vector<Student>& students); 
+void view_students(const vector<Student>& students); 
+void check_student_balance(const vector<Student>& students); 
+void admin_menu(vector<Book>& books, vector<Student>& students); 
+int student_login(const vector<Student>& students, char* username); 
+void view_available_books(const vector<Book>& books); 
+void borrow_books(vector<Book>& books, Student& student, vector<Student>& students); 
+void return_book(vector<Book>& books, Student& student, vector<Student>& students); 
+void recharge_account(Student& student, vector<Student>& students);
+void student_menu(vector<Book>& books, vector<Student>& students, int studentIndex);
 
 
 // Main Function //
@@ -56,11 +56,11 @@ int main() {
 
 
     load_books_from_file(books);
-    loadStudentsFromFile(students);
+    load_studentsa_from_file(students);
 
     int choice;
     do {
-        clearScreen();
+        clear_screen();
         cout << "\nLibrary Management System\n";
         cout << "1. Login as Admin\n";
         cout << "2. Login as Student\n";
@@ -72,27 +72,27 @@ int main() {
         {
             case 1: 
             {
-                if (adminLogin()) 
+                if (admin_login()) 
                 {
-                    adminMenu(books, students);
+                    admin_menu(books, students);
                 } else 
                 {
                     cout << "Invalid admin password!\n";
-                    pauseScreen();
+                    pause_screen();
                 }
                 break;
             }
             case 2: 
             {
                 char username[50];
-                int studentIndex = studentLogin(students, username);
+                int studentIndex = student_login(students, username);
                 if (studentIndex != -1) 
                 {
-                    studentMenu(books, students, studentIndex);
+                    student_menu(books, students, studentIndex);
                 } else 
                 {
                     cout << "Invalid username or password!\n";
-                    pauseScreen();
+                    pause_screen();
                 }
                 break;
             }
@@ -101,7 +101,7 @@ int main() {
                 break;
             default:
                 cout << "Invalid choice!\n";
-                pauseScreen();
+                pause_screen();
         }
     } while (choice != 0);
 
@@ -110,12 +110,12 @@ int main() {
 
 
 // Helper Functions // 
-void clearScreen() 
+void clear_screen() 
 {
     system("cls || clear");
 }
 
-void pauseScreen() 
+void pause_screen() 
 {
     cout << "\nPress Enter to continue...";
     cin.ignore();
@@ -155,7 +155,7 @@ void load_books_from_file(vector<Book>& books)
     }
 }
 
-void saveStudentsToFile(const vector<Student>& students) 
+void save_students_to_file(const vector<Student>& students) 
 {
     ofstream file("students.txt");
     if (file.is_open()) 
@@ -174,7 +174,7 @@ void saveStudentsToFile(const vector<Student>& students)
     }
 }
 
-void loadStudentsFromFile(vector<Student>& students) 
+void load_studentsa_from_file(vector<Student>& students) 
 {
     ifstream file("students.txt");
     if (file.is_open()) 
@@ -218,7 +218,7 @@ void loadStudentsFromFile(vector<Student>& students)
 }
 
 
-bool adminLogin() 
+bool admin_login() 
 {
     string password;
     cout << "Enter admin password: ";
@@ -226,7 +226,7 @@ bool adminLogin()
     return password == "367cc77E";
 }
 
-void addBook(vector<Book>& books) 
+void add_book(vector<Book>& books) 
 {
     Book newBook;
     cout << "Enter book ID: ";
@@ -242,7 +242,7 @@ void addBook(vector<Book>& books)
     cout << "Book added successfully!\n";
 }
 
-void editBook(vector<Book>& books) 
+void edit_book(vector<Book>& books) 
 {
     int id;
     cout << "Enter book ID to edit: ";
@@ -265,7 +265,7 @@ void editBook(vector<Book>& books)
     cout << "Book not found!\n";
 }
 
-void registerStudent(vector<Student>& students) 
+void register_student(vector<Student>& students) 
 {
     Student newStudent;
     cout << "Enter username: ";
@@ -275,11 +275,11 @@ void registerStudent(vector<Student>& students)
     newStudent.balance = 50.0f; 
     newStudent.borrowed_count = 0;
     students.push_back(newStudent);
-    saveStudentsToFile(students);
+    save_students_to_file(students);
     cout << "Student registered successfully with initial balance of $50!\n";
 }
 
-void viewStudents(const vector<Student>& students) 
+void view_students(const vector<Student>& students) 
 {
     cout << "\nRegistered Students:\n";
     cout << left << setw(20) << "Username" << setw(10) << "Balance" << "\n";
@@ -288,7 +288,7 @@ void viewStudents(const vector<Student>& students)
     }
 }
 
-void checkStudentBalance(const vector<Student>& students) 
+void check_student_balance(const vector<Student>& students) 
 {
     char username[50];
     cout << "Enter student username: ";
@@ -304,11 +304,11 @@ void checkStudentBalance(const vector<Student>& students)
     cout << "Student not found!\n";
 }
 
-void adminMenu(vector<Book>& books, vector<Student>& students) 
+void admin_menu(vector<Book>& books, vector<Student>& students) 
 {
     int choice;
     do {
-        clearScreen();
+        clear_screen();
         cout << "\nAdmin Menu\n";
         cout << "1. Add Book\n";
         cout << "2. Edit Book\n";
@@ -320,20 +320,20 @@ void adminMenu(vector<Book>& books, vector<Student>& students)
         cin >> choice;
 
         switch (choice) {
-            case 1: addBook(books); break;
-            case 2: editBook(books); break;
-            case 3: registerStudent(students); break;
-            case 4: viewStudents(students); break;
-            case 5: checkStudentBalance(students); break;
+            case 1: add_book(books); break;
+            case 2: edit_book(books); break;
+            case 3: register_student(students); break;
+            case 4: view_students(students); break;
+            case 5: check_student_balance(students); break;
             case 6: break;
             default: cout << "Invalid choice!\n";
         }
-        pauseScreen();
+        pause_screen();
     } while (choice != 6);
 }
 
 
-int studentLogin(const vector<Student>& students, char* username) 
+int student_login(const vector<Student>& students, char* username) 
 {
     char password[50];
     cout << "Enter username: ";
@@ -351,7 +351,7 @@ int studentLogin(const vector<Student>& students, char* username)
     return -1; // ناموفق
 }
 
-void viewAvailableBooks(const vector<Book>& books) 
+void view_available_books(const vector<Book>& books) 
 {
     cout << "\nAvailable Books:\n";
     cout << left << setw(10) << "ID" << setw(30) << "name" << setw(25) << "Author" << "\n";
@@ -372,7 +372,7 @@ void borrowBook(vector<Book>& books, Student& student, vector<Student>& students
         return;
     }
 
-    viewAvailableBooks(books);
+    view_available_books(books);
     int bookId;
     cout << "Enter book ID to borrow: ";
     cin >> bookId;
@@ -387,7 +387,7 @@ void borrowBook(vector<Book>& books, Student& student, vector<Student>& students
                 student.borrowed_books[student.borrowed_count++] = bookId;
                 student.balance -= 2.0f;
                 save_books_to_file(books);
-                saveStudentsToFile(students);
+                save_students_to_file(students);
                 cout << "Book borrowed successfully! $2 deducted from your account.\n";
             } 
             else 
@@ -400,7 +400,7 @@ void borrowBook(vector<Book>& books, Student& student, vector<Student>& students
     cout << "Book not available or not found!\n";
 }
 
-void returnBook(vector<Book>& books, Student& student, vector<Student>& students) 
+void return_book(vector<Book>& books, Student& student, vector<Student>& students) 
 {
     if (student.borrowed_count == 0) 
     {
@@ -447,7 +447,7 @@ void returnBook(vector<Book>& books, Student& student, vector<Student>& students
             }
 
             save_books_to_file(books);
-            saveStudentsToFile(students);
+            save_students_to_file(students);
             cout << "Book returned successfully!\n";
             return;
         }
@@ -455,7 +455,7 @@ void returnBook(vector<Book>& books, Student& student, vector<Student>& students
     cout << "Book ID not found in your borrowed list!\n";
 }
 
-void rechargeAccount(Student& student, vector<Student>& students) 
+void recharge_account(Student& student, vector<Student>& students) 
 {
     float amount;
     cout << "Current balance: $" << student.balance << "\n";
@@ -465,7 +465,7 @@ void rechargeAccount(Student& student, vector<Student>& students)
     if (amount > 0) 
     {
         student.balance += amount;
-        saveStudentsToFile(students);
+        save_students_to_file(students);
         cout << "Account recharged successfully! New balance: $" << student.balance << "\n";
     } 
     else 
@@ -474,12 +474,12 @@ void rechargeAccount(Student& student, vector<Student>& students)
     }
 }
 
-void studentMenu(vector<Book>& books, vector<Student>& students, int studentIndex) 
+void student_menu(vector<Book>& books, vector<Student>& students, int studentIndex) 
 {
     int choice;
     do 
     {
-        clearScreen();
+        clear_screen();
         cout << "\nStudent Menu - Welcome " << students[studentIndex].username << "\n";
         cout << "Current balance: $" << students[studentIndex].balance << "\n";
         cout << "1. View Available Books\n";
@@ -492,13 +492,13 @@ void studentMenu(vector<Book>& books, vector<Student>& students, int studentInde
 
         switch (choice) 
         {
-            case 1: viewAvailableBooks(books); break;
+            case 1: view_available_books(books); break;
             case 2: borrowBook(books, students[studentIndex], students); break;
-            case 3: returnBook(books, students[studentIndex], students); break;
-            case 4: rechargeAccount(students[studentIndex], students); break;
+            case 3: return_book(books, students[studentIndex], students); break;
+            case 4: recharge_account(students[studentIndex], students); break;
             case 5: break;
             default: cout << "Invalid choice!\n";
         }
-        pauseScreen();
+        pause_screen();
     } while (choice != 5);
 }
